@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 
-export default function ChatPage() {
+export default function ReminderPage() {
   return (<View>
-    <Text>Chat Page</Text>
+    <Text>Reminder Page</Text>
   </View>)
 }

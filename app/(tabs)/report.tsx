@@ -1,7 +1,7 @@
 import { View, Text } from "react-native";
 
-export default function ChatPage() {
+export default function ReportPage() {
   return (<View>
-    <Text>Chat Page</Text>
+    <Text>Report Page</Text>
   </View>)
 }
