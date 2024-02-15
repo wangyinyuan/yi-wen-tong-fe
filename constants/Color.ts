@@ -1,8 +1,8 @@
 export const lightTheme = {
   activatedTintColor: "#fff",
   inactivatedTintColor: "rgba(255, 255, 255, 0.4)",
-  navigatorBackgroundStart: "rgba(235, 92, 45, 0.58)",
-  navigatorBackgroundEnd: "rgba(247, 79, 22, 0.73)",
+  navigatorBackgroundStart: "rgb(255,144,107)",
+  navigatorBackgroundEnd: "rgb(240, 117, 79)",
   headerTintColor: "#fff",
 };
 
