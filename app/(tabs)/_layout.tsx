@@ -1,5 +1,5 @@
-import type { ThemeType } from "@/constants/Color";
-import { darkTheme, lightTheme } from "@/constants/Color";
+
+import useTheme from "@/hooks/useTheme";
 import {
   Entypo,
   FontAwesome5,
@@ -8,7 +8,7 @@ import {
 } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { Tabs } from "expo-router";
-import { StyleSheet, useColorScheme } from "react-native";
+import { StyleSheet } from "react-native";
 
 function GradientBackground({ colors }: { colors: string[] }) {
   return (
@@ -25,10 +25,11 @@ function GradientBackground({ colors }: { colors: string[] }) {
   );
 }
 
+// 导入颜色模式
+
+const theme = useTheme();
+
 export default function TabsLayout() {
-  // 导入颜色模式
-  const colorScheme = useColorScheme();
-  const theme = (colorScheme === "light" ? lightTheme : darkTheme) as ThemeType;
 
   return (
     <Tabs
@@ -63,7 +64,6 @@ export default function TabsLayout() {
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
           backgroundColor: "transparent",
-        
         },
       }}>
       <Tabs.Screen
