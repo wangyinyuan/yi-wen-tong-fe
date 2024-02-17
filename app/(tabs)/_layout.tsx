@@ -25,12 +25,12 @@ function GradientBackground({ colors }: { colors: string[] }) {
   );
 }
 
-// 导入颜色模式
 
-const theme = useTheme();
 
 export default function TabsLayout() {
-
+  
+  // 导入颜色模式
+  const theme = useTheme();
   return (
     <Tabs
       initialRouteName="index"
