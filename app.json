@@ -20,7 +20,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        // "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/319b0fdf8cc9bb8ee9d281e3c970c72d.png",
         "backgroundColor": "#ffffff"
       }
     },

@@ -1,7 +1,7 @@
 import Dialog from "@/components/ChatPage/Dialog";
-import Example from "@/components/ChatPage/Example";
+import MyDrawer from "@/components/Global/MyDrawer";
 import useTheme from "@/hooks/useTheme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 

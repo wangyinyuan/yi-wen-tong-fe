@@ -34,10 +34,7 @@ export default [
       _id: 2,
       name: "React Native",
     },
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Paris_-_Eiffelturm_und_Marsfeld2.jpg/280px-Paris_-_Eiffelturm_und_Marsfeld2.jpg",
-    sent: true,
-    received: true,
+    image: "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/20240217184258.png",
   },
   {
     _id: 5,
@@ -85,15 +82,6 @@ export default [
     received: true,
   },
   {
-    _id: 1,
-    text: "Are you building a chat app?",
-    createdAt: new Date(),
-    user: {
-      _id: 1,
-      name: "Developer",
-    },
-  },
-  {
     _id: 10,
     text: "This is a quick reply. Do you love Gifted Chat? (radio) KEEP IT",
     createdAt: new Date(),
@@ -121,6 +109,52 @@ export default [
       name: "React Native",
     },
   },
+  // {
+  //   _id: 39,
+  //   text: "刚刚去哪里神游了?🤔要继续问诊吗？",
+  //   createdAt: new Date(),
+  //   user: {
+  //     _id: 2,
+  //     name: "React Native",
+  //   },
+  //   quickReplies: {
+  //     type: "radio",
+  //     keepIt: true,
+  //     values: [
+  //       {
+  //         title: "🤪 继续问诊",
+  //         value: "yes",
+  //       },
+  //       {
+  //         title: "😘 结束问诊",
+  //         value: "no",
+  //       },
+  //     ],
+  //   },
+  // },
+  // {
+  //   _id: 40,
+  //   text: "你好像很久没打字了🤔还要继续吗？",
+  //   createdAt: new Date(),
+  //   user: {
+  //     _id: 2,
+  //     name: "React Native",
+  //   },
+  //   quickReplies: {
+  //     type: "radio",
+  //     keepIt: true,
+  //     values: [
+  //       {
+  //         title: "🤪 继续问诊",
+  //         value: "yes",
+  //       },
+  //       {
+  //         title: "😘 结束问诊",
+  //         value: "no",
+  //       },
+  //     ],
+  //   },
+  // },
   {
     _id: 20,
     text: "This is a quick reply. Do you love Gifted Chat? (checkbox)",
@@ -128,21 +162,19 @@ export default [
     pending: true,
     quickReplies: {
       type: "checkbox",
+      keepIt: true,
       values: [
         {
           title: "Yes Sir 😋",
           value: "yes",
-          keepIt: false,
         },
         {
           title: "Yes, let me show you with a picture!",
           value: "yes_picture",
-          keepIt: false,
         },
         {
           title: "Nope. What?",
           value: "no",
-          keepIt: false,
         },
       ],
     },

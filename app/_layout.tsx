@@ -1,11 +1,14 @@
+import MyDrawer from '@/components/Global/MyDrawer';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
+import { SplashScreen } from 'expo-router';
+import { Drawer } from 'expo-router/drawer';
 import { useEffect } from 'react';
+
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from 'expo-router';
 
 export const unstable_settings = {
@@ -46,8 +49,13 @@ export default function RootLayout() {
 function RootLayoutNav() {
 
   return (
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
+      // <Stack>
+      //   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      //   <Stack.Screen name="settings" options={{ headerShown: false }}/>
+      // </Stack>
+      <Drawer drawerContent={props => <MyDrawer {...props} />}>
+        <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Drawer.Screen name="settings/info"/>
+      </Drawer>
   );
 }
