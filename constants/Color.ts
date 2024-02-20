@@ -9,8 +9,11 @@ export const lightTheme = {
   bgPurple1: "#D9CAFA",
   bgPurple2: "#BB9EFF",
   bgPurple3: "#9F79F7",
+  bgGray1: "#DBDBDB",
   tGray1: "#636363",
+  tGray2: "#DBDBDB",
   tWhite: "#fff",
+  tPurple1: "#7E78FA",
 };
 
 export const darkTheme = {};

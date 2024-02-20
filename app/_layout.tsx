@@ -56,6 +56,7 @@ function RootLayoutNav() {
       <Drawer drawerContent={props => <MyDrawer {...props} />}>
         <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
         <Drawer.Screen name="settings/info"/>
+        <Drawer.Screen name="settings/account" />
       </Drawer>
   );
 }
