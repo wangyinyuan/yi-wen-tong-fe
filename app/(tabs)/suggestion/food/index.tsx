@@ -14,7 +14,7 @@ function getTimeText(): string {
 
 let timeText = getTimeText();
 
-export default function Suggestions() {
+export default function Food() {
   // TODO: 做一个预加载，请求太慢了
   return (
     <ScrollView contentContainerStyle={[styles.row, styles.scrollLayout]}>
