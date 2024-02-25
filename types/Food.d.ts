@@ -1,3 +1,4 @@
+import { FoodDetails } from "@/components/SuggestionPage/Food/FoodDetails";
 export type FoodCardProps = {
   // 卡片图片
   img: string;
@@ -11,4 +12,9 @@ export type FoodCardProps = {
   foods: string[];
   // 样式
   style?: ViewStyle;
+};
+
+export type FoodDetails = {
+  img: string;
+  title: string;
 };

@@ -1,9 +1,11 @@
 import generateID from "@/utils/generateId";
-import React, { useCallback, useEffect, useState } from "react";
-import { GiftedChat, IMessage } from "react-native-gifted-chat";
+import React, { useCallback, useState } from "react";
+import { GiftedChat } from "react-native-gifted-chat";
 import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
 import testData from "./data/test";
+import type { MyIMessage } from "@/types/ChatPage";
+import { getTime } from "@/utils/getTime";
 
 const endTitle = "如果你要结束问诊，请点击这个对话框下面的“结束问诊”按钮";
 
@@ -11,7 +13,7 @@ const endMessage = (title: string) => {
   return {
     _id: generateID(),
     text: title,
-    createdAt: new Date(),
+    createdAt: getTime(new Date()),
     user: {
       _id: 1,
       name: "Bot",
@@ -35,7 +37,7 @@ const symptomMessage = () => {
   return {
     _id: generateID(),
     text: "感谢咨询，请在下方选择你的症状，可以多选",
-    createdAt: new Date(),
+    createdAt: getTime(new Date()),
     user: {
       _id: 1,
       name: "Bot",
@@ -60,27 +62,31 @@ const symptomMessage = () => {
         },
       ],
     },
-  }
-}
+  };
+};
 
 export default function Dialog() {
-  const [messages, setMessages] = useState<IMessage[]>(testData as IMessage[]);
+  const [messages, setMessages] = useState<MyIMessage[]>(
+    testData as MyIMessage[]
+  );
 
   const onQuickReply = (replies: any[]) => {
     if (replies.length === 1) {
       const reply = replies[0];
       if (reply.value === "end") {
         // 结束问诊
-        setMessages((previousMessages) => GiftedChat.append(previousMessages, [symptomMessage() as IMessage]));
+        setMessages((previousMessages) =>
+          GiftedChat.append(previousMessages, [symptomMessage() as MyIMessage])
+        );
       }
     }
   };
 
-  const onSend = useCallback((messages: IMessage[] = []) => {
+  const onSend = useCallback((messages: MyIMessage[] = []) => {
     // 给 messages 添加正确的时间戳和用户信息
     setMessages((previousMessages) => {
       const noEndMessages = previousMessages.slice(1);
-      const updatedMessages = [endMessage(endTitle) as IMessage, ...messages];
+      const updatedMessages = [endMessage(endTitle) as MyIMessage, ...messages];
       return GiftedChat.append(noEndMessages, updatedMessages);
     });
   }, []);

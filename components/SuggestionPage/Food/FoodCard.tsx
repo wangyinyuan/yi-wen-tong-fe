@@ -2,7 +2,8 @@ import Divider from "@/components/Global/Divider";
 import { lightTheme } from "@/constants/Color";
 import { FoodCardProps } from "@/types/Food";
 import { Image } from "expo-image";
-import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function FoodCard({
   img,
@@ -34,22 +35,28 @@ export default function FoodCard({
   ));
 
   return (
-    <View style={[styles.container, style]}>
-      <View style={styles.container}>
-        <Image
-          source={img}
-          style={{ ...styles.img, height: imgHeight }}></Image>
-      </View>
-      <View style={[styles.row, styles.titleLayout]}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.calorie}>{`${calorieRange} ${unit}`}</Text>
-      </View>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={() => {
+        router.push("/suggestion/food/modal");
+      }}>
+      <View style={[styles.container, style]}>
+        <View style={styles.container}>
+          <Image
+            source={img}
+            style={{ ...styles.img, height: imgHeight }}></Image>
+        </View>
+        <View style={[styles.row, styles.titleLayout]}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.calorie}>{`${calorieRange} ${unit}`}</Text>
+        </View>
 
-      <View style={{ alignItems: "center", marginTop: 2, marginBottom: 5 }}>
-        <Divider width="90%"></Divider>
+        <View style={{ alignItems: "center", marginTop: 2, marginBottom: 5 }}>
+          <Divider width="90%"></Divider>
+        </View>
+        <View style={styles.foodLayout}>{foodList}</View>
       </View>
-      <View style={styles.foodLayout}>{foodList}</View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

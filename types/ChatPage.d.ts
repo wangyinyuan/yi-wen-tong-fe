@@ -1,3 +1,5 @@
+import { IMessage } from "react-native-gifted-chat";
+
 /**
  * 输入框属性类型定义。
  */
@@ -12,3 +14,5 @@ export type InputBoxProps<T> = {
    */
   setInput: (input: T) => void;
 };
+
+export type MyIMessage = IMessage & { createdAt: string | Date | number };
