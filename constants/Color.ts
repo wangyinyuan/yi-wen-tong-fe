@@ -6,6 +6,7 @@ export const lightTheme = {
   headerTintColor: "#fff",
   pageBackground: "#fff",
   bgPink1: "#FF87A3",
+  bgPink2: "#FF96AF",
   bgPurple1: "#D9CAFA",
   bgPurple2: "#BB9EFF",
   bgPurple3: "#9F79F7",
