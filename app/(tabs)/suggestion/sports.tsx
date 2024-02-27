@@ -4,7 +4,7 @@ import { lightTheme } from "@/constants/Color";
 import { sportsImgs } from "@/data/sports";
 import { Image } from "expo-image";
 import { useState } from "react";
-import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
 
 const WIDTH = Dimensions.get("window").width;
@@ -42,7 +42,6 @@ export default function Sports() {
         style={styles.customCarousel}></Carousel>
       <View style={styles.detailCardContainer}>
         <View style={styles.headerLayout}>
-          <Text style={[styles.textBase, styles.title]}>力量训练</Text>
           <Tabs tabs={tabs} defaultIndex={1}></Tabs>
         </View>
         <ScrollView
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
   },
   headerLayout: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     padding: 15,
   },
   cardsLayout: {

@@ -2,8 +2,8 @@ import type { InputBoxProps } from '@/types/ChatPage';
 import { TextInput } from 'react-native-paper';
 import { View } from 'react-native';
 
-
-export const InputBox = ({input, setInput} : InputBoxProps<string>) => {
+// 默认多行的输入框。
+export const MultiInputBox = ({input, setInput} : InputBoxProps<string>) => {
 
 
     return (

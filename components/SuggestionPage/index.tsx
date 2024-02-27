@@ -1,7 +1,7 @@
 import { lightTheme } from "@/constants/Color";
 import { Image } from "expo-image";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { router } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const activeOpacity = 0.8;
 
