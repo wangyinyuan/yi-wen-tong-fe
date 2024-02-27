@@ -1,3 +1,4 @@
+import { View, ViewStyle } from "react-native";
 import { IMessage } from "react-native-gifted-chat";
 
 /**
@@ -13,6 +14,22 @@ export type InputBoxProps<T> = {
    * @param input 新的输入值。
    */
   setInput: (input: T) => void;
+
+  /**
+   * 输入框的占位符。
+   */
+  placeholder?: string;
+
+  /**
+   * 输入框标签。
+   */
+  label?: string;
+
+  error?: boolean;
+
+  containerStyle?: ViewStyle;
+
+  numberOfLines?: number;
 };
 
 export type MyIMessage = IMessage & { createdAt: string | Date | number };

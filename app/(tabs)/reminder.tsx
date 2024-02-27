@@ -1,4 +1,4 @@
-import CreateModal from "@/components/ReminderPage/CreateModal";
+import FormModal from "@/components/ReminderPage/FormModal";
 import { lightTheme } from "@/constants/Color";
 import type { ReminderForm } from "@/types/Reminder";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,11 +18,11 @@ export default function ReminderPage() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CreateModal
+      <FormModal
         isVisible={isVisible}
         setVisible={setVisible}
         form={form}
-        setFrom={setFrom}></CreateModal>
+        setFrom={setFrom}></FormModal>
       <View style={styles.buttonLayout}>
         <IconButton
           icon={(props) => (

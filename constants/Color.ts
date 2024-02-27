@@ -16,6 +16,7 @@ export const lightTheme = {
   bgBlue1: "#cceaff",
   tGray1: "#636363",
   tGray2: "#DBDBDB",
+  tGray3: "#969696",
   tWhite: "#fff",
   tPurple1: "#7E78FA",
   tBlue1: "#4F9EF7",

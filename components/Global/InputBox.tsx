@@ -1,24 +1,30 @@
-import type { InputBoxProps } from '@/types/ChatPage';
-import { TextInput } from 'react-native-paper';
-import { View } from 'react-native';
+import { lightTheme } from "@/constants/Color";
+import type { InputBoxProps } from "@/types/ChatPage";
+import { View } from "react-native";
+import { TextInput } from "react-native-paper";
 
 // 默认单行的输入框。
-export const InputBox = ({input, setInput} : InputBoxProps<string>) => {
-
-
-    return (
-        <View>
-            <TextInput
-        label="输入框"
+export const InputBox = ({
+  input,
+  setInput,
+  placeholder,
+  label = "输入框",
+  error = false,
+  containerStyle,
+}: InputBoxProps<string>) => {
+  return (
+    <View style={containerStyle}>
+      <TextInput
+        label={label}
         mode="outlined"
-        placeholder='请输入咨询的内容'
-        multiline={true}
-        numberOfLines={2}
+        placeholder={placeholder}
         value={input}
-        onChangeText={text => setInput(text)}
-    />
-        
+        onChangeText={(text) => setInput(text)}
+        error={error}
+        selectionColor={lightTheme.bgPurple1}
+        outlineColor={lightTheme.bgPurple2}
+        activeOutlineColor={lightTheme.bgPurple3}
+      />
     </View>
-        
-    )
-}
+  );
+};

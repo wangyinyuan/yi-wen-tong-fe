@@ -1,24 +1,35 @@
-import type { InputBoxProps } from '@/types/ChatPage';
-import { TextInput } from 'react-native-paper';
-import { View } from 'react-native';
+import { lightTheme } from "@/constants/Color";
+import type { InputBoxProps } from "@/types/ChatPage";
+import { TextStyle, View } from "react-native";
+import { TextInput } from "react-native-paper";
 
-// 默认多行的输入框。
-export const MultiInputBox = ({input, setInput} : InputBoxProps<string>) => {
-
-
-    return (
-        <View>
-            <TextInput
-        label="输入框"
+// 默认单行的输入框。
+export const MultiInputBox = ({
+  input,
+  setInput,
+  placeholder,
+  label = "输入框",
+  error = false,
+  containerStyle,
+  style = { height: 125 },
+  numberOfLines = 4,
+}: InputBoxProps<string> & { style?: TextStyle }) => {
+  return (
+    <View style={containerStyle}>
+      <TextInput
+        label={label}
         mode="outlined"
-        placeholder='请输入咨询的内容'
-        multiline={true}
-        numberOfLines={2}
+        placeholder={placeholder}
         value={input}
-        onChangeText={text => setInput(text)}
-    />
-        
+        onChangeText={(text) => setInput(text)}
+        error={error}
+        selectionColor={lightTheme.bgPurple1}
+        outlineColor={lightTheme.bgPurple2}
+        activeOutlineColor={lightTheme.bgPurple3}
+        multiline={true}
+        numberOfLines={numberOfLines}
+        style={style}
+      />
     </View>
-        
-    )
-}
+  );
+};
