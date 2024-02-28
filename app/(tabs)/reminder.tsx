@@ -13,7 +13,8 @@ export default function ReminderPage() {
   const [form, setFrom] = useState<ReminderForm>({
     title: "",
     detail: "",
-    dueDate: "",
+    dueDate: undefined,
+    dueTime: "",
   });
 
   return (

@@ -1,12 +1,13 @@
 import { lightTheme } from "@/constants/Color";
 import type { ReminderForm } from "@/types/Reminder";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
-import { InputBox } from "../Global/InputBox";
-import { MultiInputBox } from "../Global/MultiInputBox";
 import { Button } from "react-native-paper";
 import { DatePickerModal } from "react-native-paper-dates";
+import { InputBox } from "../Global/InputBox";
+import { MultiInputBox } from "../Global/MultiInputBox";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 // tips 温馨提醒
 const tips = [
@@ -35,6 +36,21 @@ export default function FormModal({
   setFrom: (form: ReminderForm) => void;
 }) {
   const [tip, setTip] = useState<string>();
+  const [dateVisible, setDateVisible] = useState(false);
+  const [timeVisible, setTimeVisible] = useState(false);
+  console.log(form);
+
+  const onDismissSingle = useCallback(() => {
+    setDateVisible(false);
+  }, [setDateVisible]);
+
+  const onConfirmSingle = useCallback(
+    (params: any) => {
+      setDateVisible(false);
+      setFrom({ ...form, dueDate: params.date });
+    },
+    [setDateVisible, setFrom]
+  );
 
   // 每次打开 Modal 的时候重新生成 tips
   useEffect(() => {
@@ -68,7 +84,24 @@ export default function FormModal({
           containerStyle={styles.inputStyle}
           numberOfLines={3}
           style={{ height: 100 }}></MultiInputBox>
-        <View></View>
+        <SafeAreaProvider>
+          <View>
+            <Button
+              onPress={() => setDateVisible(true)}
+              uppercase={false}
+              mode="outlined">
+              Pick single date
+            </Button>
+            <DatePickerModal
+              locale="zh"
+              mode="single"
+              visible={dateVisible}
+              onDismiss={onDismissSingle}
+              date={form.dueDate}
+              onConfirm={onConfirmSingle}
+            />
+          </View>
+        </SafeAreaProvider>
       </View>
     </Modal>
   );
