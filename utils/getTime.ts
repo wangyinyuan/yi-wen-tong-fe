@@ -1,4 +1,5 @@
-export function getTime(date: Date) {
+export function getTime(date: Date | undefined) {
+  if (!date) return "";
   const pad = (number: number) => (number < 10 ? "0" + number : number);
 
   let year = date.getFullYear();

@@ -8,7 +8,7 @@ const customTheme = {
   fonts: {
     ...DefaultTheme.fonts,
     medium: {
-      ...DefaultTheme.fonts.medium,
+      ...DefaultTheme.fonts.bodyMedium,
       fontSize: 20,
     },
   },
@@ -19,7 +19,7 @@ const customItem = {
   fonts: {
     ...DefaultTheme.fonts,
     medium: {
-      ...DefaultTheme.fonts.medium,
+      ...DefaultTheme.fonts.bodyMedium,
       fontSize: 16,
     },
   },

@@ -1,4 +1,5 @@
 import FormModal from "@/components/ReminderPage/FormModal";
+import ReminderCard from "@/components/ReminderPage/ReminderCard";
 import { lightTheme } from "@/constants/Color";
 import type { ReminderForm } from "@/types/Reminder";
 import { Ionicons } from "@expo/vector-icons";
@@ -18,30 +19,60 @@ export default function ReminderPage() {
   });
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <FormModal
-        isVisible={isVisible}
-        setVisible={setVisible}
-        form={form}
-        setFrom={setFrom}></FormModal>
+    <View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <ReminderCard
+          title={form.title}
+          detail={form.detail}
+          dueDate={form.dueDate}
+          dueTime={form.dueTime}></ReminderCard>
+        <ReminderCard
+          title={form.title}
+          detail={form.detail}
+          dueDate={form.dueDate}
+          dueTime={form.dueTime}
+          index={1}></ReminderCard>
+        <ReminderCard
+          title={form.title}
+          detail={form.detail}
+          dueDate={form.dueDate}
+          dueTime={form.dueTime}
+          index={2}></ReminderCard>
+        <ReminderCard
+          title={form.title}
+          detail={form.detail}
+          dueDate={form.dueDate}
+          dueTime={form.dueTime}
+          index={3}></ReminderCard>
+        <ReminderCard
+          title={form.title}
+          detail={form.detail}
+          dueDate={form.dueDate}
+          dueTime={form.dueTime}
+          index={4}></ReminderCard>
+        <FormModal
+          isVisible={isVisible}
+          setVisible={setVisible}
+          form={form}
+          setFrom={setFrom}></FormModal>
+      </ScrollView>
       <View style={styles.buttonLayout}>
         <IconButton
           icon={(props) => (
             <Ionicons name="create" size={26} color={props.color}></Ionicons>
           )}
-          color={lightTheme.tWhite}
+          iconColor={lightTheme.tWhite}
           style={styles.buttonBg}
           onPress={() => setVisible(true)}></IconButton>
         <Text style={[styles.textBase, styles.buttonText]}>新建提醒</Text>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    position: "relative",
+    alignItems: "center",
   },
   textBase: {
     fontSize: 16,

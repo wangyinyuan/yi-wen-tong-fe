@@ -24,6 +24,7 @@ export const InputBox = ({
         selectionColor={lightTheme.bgPurple1}
         outlineColor={lightTheme.bgPurple2}
         activeOutlineColor={lightTheme.bgPurple3}
+        theme={{colors: { onSurfaceVariant : lightTheme.tGray3}}}
       />
     </View>
   );

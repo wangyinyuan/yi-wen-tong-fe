@@ -29,6 +29,7 @@ export const MultiInputBox = ({
         multiline={true}
         numberOfLines={numberOfLines}
         style={style}
+        theme={{ colors: { onSurfaceVariant: lightTheme.tGray3 } }}
       />
     </View>
   );

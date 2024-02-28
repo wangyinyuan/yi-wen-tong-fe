@@ -4,10 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
 import { Button } from "react-native-paper";
-import { DatePickerModal } from "react-native-paper-dates";
+import { DatePickerModal, TimePickerModal } from "react-native-paper-dates";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { InputBox } from "../Global/InputBox";
 import { MultiInputBox } from "../Global/MultiInputBox";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import SubmitButton from "../Global/SubmitButton";
 
 // tips 温馨提醒
 const tips = [
@@ -24,6 +25,17 @@ function getTip() {
   return tips[Math.floor(Math.random() * tips.length)];
 }
 
+// 星期数字和中文的对应关系
+const dayMap = ["日", "一", "二", "三", "四", "五", "六"];
+
+// 显示用户选择的日期（不含时间）
+const getDisplayDate = (date: Date | undefined) => {
+  if (date === undefined) return "";
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} 星期${
+    dayMap[date.getDay()]
+  }`;
+};
+
 export default function FormModal({
   isVisible,
   setVisible,
@@ -38,7 +50,6 @@ export default function FormModal({
   const [tip, setTip] = useState<string>();
   const [dateVisible, setDateVisible] = useState(false);
   const [timeVisible, setTimeVisible] = useState(false);
-  console.log(form);
 
   const onDismissSingle = useCallback(() => {
     setDateVisible(false);
@@ -49,7 +60,23 @@ export default function FormModal({
       setDateVisible(false);
       setFrom({ ...form, dueDate: params.date });
     },
-    [setDateVisible, setFrom]
+    [setDateVisible, setFrom, form]
+  );
+
+  // 处理时间选择与否
+  // 如果用户没有选择时间，那么就不改变 form 的值
+  const onDismissTime = useCallback(() => {
+    setTimeVisible(false);
+  }, [setTimeVisible]);
+
+  // 确认改变时间
+  const onConfirmTime = useCallback(
+    ({ hours, minutes }: any) => {
+      setTimeVisible(false);
+      console.log(form);
+      setFrom({ ...form, dueTime: `${hours}:${minutes}` });
+    },
+    [setTimeVisible, setFrom, form]
   );
 
   // 每次打开 Modal 的时候重新生成 tips
@@ -62,6 +89,8 @@ export default function FormModal({
   return (
     <Modal
       isVisible={isVisible}
+      animationIn={"fadeIn"}
+      animationOut={"fadeOut"}
       onBackdropPress={() => setVisible(false)}
       style={styles.modalLayout}>
       <View style={styles.container}>
@@ -84,24 +113,69 @@ export default function FormModal({
           containerStyle={styles.inputStyle}
           numberOfLines={3}
           style={{ height: 100 }}></MultiInputBox>
-        <SafeAreaProvider>
-          <View>
-            <Button
-              onPress={() => setDateVisible(true)}
-              uppercase={false}
-              mode="outlined">
-              Pick single date
-            </Button>
-            <DatePickerModal
-              locale="zh"
-              mode="single"
-              visible={dateVisible}
-              onDismiss={onDismissSingle}
-              date={form.dueDate}
-              onConfirm={onConfirmSingle}
-            />
-          </View>
-        </SafeAreaProvider>
+        <View style={styles.timeContainer}>
+          <SafeAreaProvider>
+            <View style={styles.timePickerLayout}>
+              <View style={styles.timeTextWrapper}>
+                <Text style={styles.timeText}>
+                  {getDisplayDate(form.dueDate)}
+                </Text>
+              </View>
+
+              <Button
+                onPress={() => setDateVisible(true)}
+                uppercase={false}
+                mode="contained-tonal"
+                style={styles.button}>
+                日期
+              </Button>
+              <DatePickerModal
+                locale="zh"
+                mode="single"
+                visible={dateVisible}
+                onDismiss={onDismissSingle}
+                date={form.dueDate}
+                onConfirm={onConfirmSingle}
+              />
+            </View>
+          </SafeAreaProvider>
+          <SafeAreaProvider>
+            <View style={styles.timePickerLayout}>
+              <View style={styles.timeTextWrapper}>
+                <Text style={styles.timeText}>
+                  {form.dueTime === "" ? "" : form.dueTime}
+                </Text>
+              </View>
+              <Button
+                onPress={() => setTimeVisible(true)}
+                uppercase={false}
+                mode="contained-tonal"
+                style={styles.button}>
+                时间
+              </Button>
+              <TimePickerModal
+                locale="zh"
+                visible={timeVisible}
+                onDismiss={onDismissTime}
+                onConfirm={onConfirmTime}
+                hours={12}
+                minutes={14}
+              />
+            </View>
+          </SafeAreaProvider>
+        </View>
+        <View style={styles.submitLayout}>
+          <SubmitButton
+            type="cancel"
+            handleClick={() => {
+              setVisible(false);
+            }}></SubmitButton>
+          <SubmitButton
+            type="confirm"
+            handleClick={() => {
+              setVisible(false);
+            }}></SubmitButton>
+        </View>
       </View>
     </Modal>
   );
@@ -129,5 +203,33 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginLeft: 15,
     marginRight: 15,
+  },
+  timeContainer: {
+    flexDirection: "row",
+    marginLeft: 15,
+    marginRight: 15,
+    marginTop: 10,
+  },
+  button: {
+    width: "80%",
+  },
+  timePickerLayout: {
+    height: 70,
+    alignItems: "center",
+  },
+  timeTextWrapper: {
+    height: 30,
+    width: "100%",
+    // backgroundColor: lightTheme.tGray2,
+  },
+  timeText: {
+    textAlign: "center",
+  },
+  submitLayout: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    width: "100%",
+    marginTop: 20,
+    paddingRight: 25,
   },
 });

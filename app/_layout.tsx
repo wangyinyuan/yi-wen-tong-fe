@@ -4,6 +4,10 @@ import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
+import { registerTranslation, zh } from "react-native-paper-dates";
+
+// 注册 locale
+registerTranslation("zh", zh);
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -42,17 +46,11 @@ export default function RootLayout() {
     return null;
   }
 
-  return (
-      <RootLayoutNav />
-  );
+  return <RootLayoutNav />;
 }
 
 function RootLayoutNav() {
   return (
-    // <Stack>
-    //   <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    //   <Stack.Screen name="settings" options={{ headerShown: false }}/>
-    // </Stack>
     <Drawer drawerContent={(props) => <MyDrawer {...props} />}>
       <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
       <Drawer.Screen name="settings/info" />
