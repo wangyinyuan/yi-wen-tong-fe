@@ -5,13 +5,14 @@ import { SplashScreen } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
 import { registerTranslation, zh } from "react-native-paper-dates";
+import { UserProvider } from "@/context/UserContext";
 
 // 注册 locale
 registerTranslation("zh", zh);
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary
+  ErrorBoundary,
 } from "expo-router";
 
 export const unstable_settings = {
@@ -46,15 +47,21 @@ export default function RootLayout() {
     return null;
   }
 
-  return <RootLayoutNav />;
+  return (
+    <UserProvider>
+      <RootLayoutNav />
+    </UserProvider>
+  );
 }
 
 function RootLayoutNav() {
   return (
-    <Drawer drawerContent={(props) => <MyDrawer {...props} />}>
+    <Drawer
+      drawerContent={(props) => <MyDrawer {...props} />}
+      screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Drawer.Screen name="settings/info" />
-      <Drawer.Screen name="settings/account" />
+      <Drawer.Screen name="settings/info" options={{ headerShown: true }} />
+      <Drawer.Screen name="settings/account" options={{ headerShown: true }} />
     </Drawer>
   );
 }
