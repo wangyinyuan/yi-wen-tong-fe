@@ -4,14 +4,15 @@ import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
 export default function Login() {
-    
 
   return (
     <View style={styles.container}>
       <View style={styles.titleLayout}>
         <Text style={[styles.textBase, styles.title]}>账号密码登录</Text>
         <View style={styles.registerLayout}>
-          <Text style={[styles.textBase, styles.registerText]}>还没有账号？点击跳转到注册 {`->`}</Text>
+          <Text style={[styles.textBase, styles.registerText]}>
+            还没有账号？点击跳转到注册 {`->`}
+          </Text>
           <Button onPress={() => router.push("/login/register")}>注册</Button>
         </View>
       </View>
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
   titleLayout: {
     width: "100%",
   },
-  registerLayout : {
+  registerLayout: {
     flexDirection: "row",
     alignItems: "center",
   },
@@ -39,5 +40,5 @@ const styles = StyleSheet.create({
   },
   registerText: {
     color: lightTheme.tGray3,
-  }
+  },
 });

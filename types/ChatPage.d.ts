@@ -33,3 +33,27 @@ export type InputBoxProps<T> = {
 };
 
 export type MyIMessage = IMessage & { createdAt: string | Date | number };
+
+export type NewChatData = {
+  _id: string;
+  createdAt: string | Date | number;
+  messages: MyIMessage[];
+};
+
+export type History = {
+  _id: string;
+  createdAt: string | Date | number;
+  title: string;
+};
+
+export type Messages = {
+  _id: string;
+  createdAt: string | Date | number;
+  messages: MyIMessage[];
+};
+
+export type ReplyContent = {
+  title: string;
+  value: string;
+  messageId?: any;
+};

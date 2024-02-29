@@ -6,6 +6,7 @@ import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
 import { registerTranslation, zh } from "react-native-paper-dates";
 import { UserProvider } from "@/context/UserContext";
+import { RootSiblingParent } from "react-native-root-siblings";
 
 // 注册 locale
 registerTranslation("zh", zh);
@@ -49,7 +50,9 @@ export default function RootLayout() {
 
   return (
     <UserProvider>
-      <RootLayoutNav />
+      <RootSiblingParent>
+        <RootLayoutNav />
+      </RootSiblingParent>
     </UserProvider>
   );
 }

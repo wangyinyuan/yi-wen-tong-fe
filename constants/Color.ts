@@ -8,6 +8,7 @@ export const lightTheme = {
   bgPink1: "#FF87A3",
   bgPink2: "#FF96AF",
   bgPink3: "#f4b7c9",
+  bgRed1: "#fef0f0",
   bgPurple1: "#D9CAFA",
   bgPurple2: "#BB9EFF",
   bgPurple3: "#9F79F7",
@@ -32,6 +33,7 @@ export const lightTheme = {
   tBlue2: "#2E476E",
   tGreen1: "#86B832",
   tYellow1: "#FFAA00",
+  tRed1: "#f56c6c",
 };
 
 export const darkTheme = {};
