@@ -13,6 +13,7 @@ export const MultiInputBox = ({
   containerStyle,
   style = { height: 125 },
   numberOfLines = 4,
+  handleBlur,
 }: InputBoxProps<string> & { style?: TextStyle }) => {
   return (
     <View style={containerStyle}>
@@ -27,6 +28,7 @@ export const MultiInputBox = ({
         outlineColor={lightTheme.bgPurple2}
         activeOutlineColor={lightTheme.bgPurple3}
         multiline={true}
+        onBlur={handleBlur}
         numberOfLines={numberOfLines}
         style={style}
         theme={{ colors: { onSurfaceVariant: lightTheme.tGray3 } }}

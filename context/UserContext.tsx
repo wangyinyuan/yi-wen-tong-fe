@@ -20,7 +20,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             }
             else {
                 // 跳转到登录页面
-                // router.replace('/login/');
+                router.replace('/login/');
             }
         }
 

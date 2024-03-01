@@ -18,5 +18,8 @@ export const registerReq = ({
       email,
       password,
     },
+
+    // @ts-ignore
+    skipAuth: true,
   });
 };

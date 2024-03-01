@@ -15,5 +15,7 @@ export const loginReq = ({
       email,
       password,
     },
+    // @ts-ignore
+    skipAuth: true,
   });
 };

@@ -30,6 +30,12 @@ export type InputBoxProps<T> = {
   containerStyle?: ViewStyle;
 
   numberOfLines?: number;
+
+  // 处理输入框失焦事件。
+  handleBlur?: () => void;
+
+  // 是否为密码输入框。
+  secureTextEntry?: boolean;
 };
 
 export type MyIMessage = IMessage & { createdAt: string | Date | number };
