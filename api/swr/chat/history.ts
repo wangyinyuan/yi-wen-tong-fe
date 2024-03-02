@@ -28,6 +28,7 @@ export function useChatMessageHistory(param: { _id: string }) {
     history: localHistory || data,
     isMessagesLoading: !data && !error,
     isMessagesError: error,
+    setLocalHistory,
     mutate,
   };
 }

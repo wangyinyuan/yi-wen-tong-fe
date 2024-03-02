@@ -8,7 +8,7 @@
     "scheme": "yiwentong",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/images/animeSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

@@ -12,6 +12,7 @@ export type FoodCardProps = {
   foods: string[];
   // 样式
   style?: ViewStyle;
+  _id: string;
 };
 
 export type FoodDetails = {

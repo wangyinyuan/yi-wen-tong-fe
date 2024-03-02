@@ -6,6 +6,7 @@ export const foodCard: FoodCardProps = {
   calorieRange: "100-200",
   unit: "kcal",
   foods: ["牛奶/鲜果", "全谷物面包", "鸡蛋"],
+  _id: "1",
 };
 
 export const foodSuggestions = [

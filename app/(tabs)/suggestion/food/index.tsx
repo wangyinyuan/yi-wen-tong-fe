@@ -1,3 +1,4 @@
+import { useFoodCardsInfo } from "@/api/swr/advice/food";
 import FoodCard from "@/components/SuggestionPage/Food/FoodCard";
 import { lightTheme } from "@/constants/Color";
 import { blurHash } from "@/constants/imgHolder";
@@ -15,18 +16,23 @@ function getTimeText(): string {
 let timeText = getTimeText();
 
 export default function Food() {
-  // TODO: 做一个预加载，请求太慢了
+  // 请求食物卡片数据
+  const { foodCards } = useFoodCardsInfo();
+
+  if (!foodCards) return null;
+
+  console.log(foodCards);
+
   return (
     <ScrollView contentContainerStyle={[styles.row, styles.scrollLayout]}>
       <View style={styles.column}>
         <Text style={styles.timeText}>{timeText}</Text>
         <FoodCard
-          {...foodCard}
+          {...foodCards[0]}
           key="1"
           style={styles.foodCardLayout}></FoodCard>
         <FoodCard
-          {...foodCard}
-          title="晚餐"
+          {...foodCards[2]}
           key="2"
           style={styles.foodCardLayout}></FoodCard>
       </View>
@@ -38,13 +44,11 @@ export default function Food() {
           placeholder={blurHash}
           onError={(error) => console.error(error)}></Image>
         <FoodCard
-          {...foodCard}
-          title="午餐"
+          {...foodCards[1]}
           key="3"
           style={styles.foodCardLayout}></FoodCard>
         <FoodCard
-          {...foodCard}
-          title="加餐"
+          {...foodCards[3]}
           key="4"
           style={styles.foodCardLayout}></FoodCard>
       </View>

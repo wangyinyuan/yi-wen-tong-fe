@@ -6,7 +6,7 @@ import { router } from "expo-router";
 import Toast from "react-native-root-toast";
 
 const httpInstance = axios.create({
-  baseURL: "http://10.19.134.250:8080",
+  baseURL: "http://106.14.33.218:8080",
   timeout: 10000,
 });
 

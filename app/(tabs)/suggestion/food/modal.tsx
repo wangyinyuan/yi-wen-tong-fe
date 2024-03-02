@@ -1,5 +1,5 @@
 import FoodDetails from "@/components/SuggestionPage/Food/FoodDetails";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { View } from "react-native";
 
@@ -10,6 +10,10 @@ export default function Suggestions() {
     router.back();
     setIsVisible(true);
   }
+
+  // 获取路径参数
+  const { params } = useLocalSearchParams();
+  console.log(params);
 
   return (
     <View>

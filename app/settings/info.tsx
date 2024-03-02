@@ -1,7 +1,14 @@
-import { View, Text } from 'react-native';
+import EmptyView from "@/components/Global/Empty";
+import { Text, View } from "react-native";
 
 export default function Info() {
-    return <View>
-        <Text>Info</Text>
+  if (true) {
+    return <EmptyView />;
+  }
+
+  return (
+    <View>
+      <Text>Info</Text>
     </View>
+  );
 }

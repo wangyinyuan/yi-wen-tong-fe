@@ -12,6 +12,7 @@ export default function FoodCard({
   unit,
   foods,
   style,
+  _id,
 }: FoodCardProps) {
   const getImageHeight = () => {
     switch (title) {
@@ -28,17 +29,23 @@ export default function FoodCard({
 
   const imgHeight = getImageHeight();
 
-  const foodList = foods.map((food, index) => (
-    <Text key={index} style={styles.food}>
-      {food}
-    </Text>
-  ));
+  const foodList =
+    foods &&
+    foods.length &&
+    foods.map((food, index) => (
+      <Text key={index} style={styles.food}>
+        {food}
+      </Text>
+    ));
 
   return (
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
-        router.push("/suggestion/food/modal");
+        router.push({
+          pathname: "/suggestion/food/modal",
+          params: { _id },
+        });
       }}>
       <View style={[styles.container, style]}>
         <View style={styles.container}>

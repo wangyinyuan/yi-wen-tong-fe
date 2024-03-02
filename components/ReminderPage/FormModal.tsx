@@ -73,7 +73,6 @@ export default function FormModal({
   const onConfirmTime = useCallback(
     ({ hours, minutes }: any) => {
       setTimeVisible(false);
-      console.log(form);
       setFrom({ ...form, dueTime: `${hours}:${minutes}` });
     },
     [setTimeVisible, setFrom, form]
