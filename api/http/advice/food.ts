@@ -10,10 +10,10 @@ export const getFoodCardsReq = () => {
 
 export const getFoodDetailReq = ({ _id }: { _id: string }) => {
   return request<FoodDetails>({
-    url: "/advice/food",
+    url: `/advice/food/${_id}`,
     method: "get",
-    params: {
-      _id,
-    },
+    // params: {
+    //   _id,
+    // },
   });
 };

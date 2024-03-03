@@ -41,6 +41,9 @@ httpInstance.interceptors.response.use(
     // 如果响应超时，则返回 axios 自带的 message
     if (!e.response) {
       Toast.show("网络错误！", toastErrorConfig);
+    } else if (e.response.data.code === 401) {
+      Toast.show("Token失效!请重新登录", toastWarningConfig);
+      router.replace("/login/");
     } else if (e.response.data.msg) {
       // 显示后端提供的错误信息
       Toast.show(e.response.data.msg, toastErrorConfig);

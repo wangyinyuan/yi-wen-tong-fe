@@ -1,6 +1,5 @@
-import { endChatReq } from "./../../http/chat/end";
-import useSWR from "swr";
 import { getFoodCardsReq, getFoodDetailReq } from "@/api/http/advice/food";
+import useSWR from "swr";
 
 export const useFoodCardsInfo = () => {
   const { data, error, mutate } = useSWR("/advice/food", () =>
@@ -16,8 +15,11 @@ export const useFoodCardsInfo = () => {
 };
 
 export const useFoodDetailInfo = (_id: string) => {
-  const { data, error, mutate } = useSWR("/advice/food", () =>
-    getFoodDetailReq({ _id })
+  const shouldFetch = !!_id;
+
+  const { data, error, mutate } = useSWR(
+    () => (shouldFetch ? `/advice/food/${_id}` : ""),
+    () => getFoodDetailReq({ _id })
   );
 
   return {

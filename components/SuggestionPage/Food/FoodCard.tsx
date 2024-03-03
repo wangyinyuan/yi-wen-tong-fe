@@ -43,8 +43,8 @@ export default function FoodCard({
       activeOpacity={0.8}
       onPress={() => {
         router.push({
-          pathname: "/suggestion/food/modal",
-          params: { _id },
+          pathname: "/(tabs)/suggestion/food/modal",
+          params: { _id: _id },
         });
       }}>
       <View style={[styles.container, style]}>

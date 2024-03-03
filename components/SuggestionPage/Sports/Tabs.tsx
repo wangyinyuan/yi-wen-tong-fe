@@ -1,9 +1,10 @@
+import { lightTheme } from "@/constants/Color";
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withTiming,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 
 const CONTAINER_WIDTH = 190;
@@ -57,13 +58,13 @@ const styles = StyleSheet.create({
     width: CONTAINER_WIDTH,
     height: 40,
     borderRadius: 20,
-    borderColor: "#FF8D1A",
+    borderColor: lightTheme.bgPink5,
     borderWidth: 2,
     position: "relative",
   },
   highlight: {
     height: 37,
-    backgroundColor: "#FF8D1A",
+    backgroundColor: lightTheme.bgPink5,
     position: "absolute",
     bottom: 0,
     width: TAB_WIDTH,

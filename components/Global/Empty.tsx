@@ -1,15 +1,10 @@
 import { lightTheme } from "@/constants/Color";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
 export default function EmptyView() {
-  useEffect(() => {
-    console.log("ErrorView mounted");
-  }, []);
-
   return (
     <View style={styles.container}>
       <Image

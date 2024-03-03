@@ -1,8 +1,8 @@
 import { useFoodCardsInfo } from "@/api/swr/advice/food";
+import Indicator from "@/components/Global/Indicator";
 import FoodCard from "@/components/SuggestionPage/Food/FoodCard";
 import { lightTheme } from "@/constants/Color";
 import { blurHash } from "@/constants/imgHolder";
-import { foodCard } from "@/data/foods";
 import { Image } from "expo-image";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -17,11 +17,10 @@ let timeText = getTimeText();
 
 export default function Food() {
   // 请求食物卡片数据
-  const { foodCards } = useFoodCardsInfo();
+  const { foodCards, isLoading } = useFoodCardsInfo();
 
-  if (!foodCards) return null;
-
-  console.log(foodCards);
+  // 如果数据正在加载或者数据为空则显示加载指示器
+  if (isLoading || !foodCards) return <Indicator animating={true} />;
 
   return (
     <ScrollView contentContainerStyle={[styles.row, styles.scrollLayout]}>

@@ -129,7 +129,6 @@ export default function Dialog() {
         const res = await repliesReq({ _id: chatId, replies: replies });
         Toast.show("症状发送成功！即将开启新的对话😚", toastSuccessConfig);
         setTimeout(() => setIsNewChat(true), 1000);
-        console.log(res);
       } catch (error) {
         Toast.show("症状发送失败，请重试！", toastErrorConfig);
       }

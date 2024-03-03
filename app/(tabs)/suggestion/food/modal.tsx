@@ -11,13 +11,12 @@ export default function Suggestions() {
     setIsVisible(true);
   }
 
-  // 获取路径参数
-  const { params } = useLocalSearchParams();
-  console.log(params);
+  const { _id } = useLocalSearchParams();
+
 
   return (
-    <View>
-      <FoodDetails isVisible={isVisible} onClose={handleClose} details={1} />
+    <View style={{ flex: 1 }}>
+      <FoodDetails isVisible={isVisible} onClose={handleClose} />
     </View>
   );
 }

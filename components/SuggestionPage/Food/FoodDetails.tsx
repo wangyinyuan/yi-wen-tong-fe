@@ -1,18 +1,68 @@
+import { useFoodDetailInfo } from "@/api/swr/advice/food";
+import ErrorView from "@/components/Global/Error";
+import Indicator from "@/components/Global/Indicator";
 import { lightTheme } from "@/constants/Color";
-import { foodSuggestions } from "@/data/foods";
 import { Image } from "expo-image";
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Dimensions, SectionList, StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
+
+const WIDTH = Dimensions.get("window").width;
 
 export default function FoodDetails({
   isVisible,
   onClose,
-  details,
 }: {
   isVisible: boolean;
   onClose: any;
-  details: any;
 }) {
+  const { _id } = useLocalSearchParams();
+
+  // 获取食物详情
+  const { foodDetail, isLoading } = useFoodDetailInfo(_id as string);
+
+  if (isLoading || !foodDetail) return <Indicator animating={true} />;
+
+  if (!foodDetail.detailCards || !foodDetail.details)
+    return <ErrorView pathname="/suggestion/food/" />;
+
+  // 卡片组件
+  const foodCards = foodDetail.detailCards.map((item, index) => {
+    const colors = {
+      bg: lightTheme.bgGreen1,
+      t: lightTheme.tGreen1,
+    };
+    switch (index) {
+      case 0:
+        break;
+      case 1:
+        colors.bg = lightTheme.bgYellow1;
+        colors.t = lightTheme.tYellow1;
+        break;
+      case 2:
+        colors.bg = lightTheme.bgBlue1;
+        colors.t = lightTheme.tBlue1;
+        break;
+    }
+
+    return (
+      <View
+        style={[styles.foodCard, { backgroundColor: colors.bg }]}
+        key={index}>
+        <Image source={item.img} style={styles.foodIcon}></Image>
+        <Text style={[styles.textBase, { color: colors.t }]}>{item.name}</Text>
+      </View>
+    );
+  });
+
+  // 食物建议，把 suggestions 转换成 SectionList 的数据格式
+  const foodSuggestionsData = foodDetail.details.map((item) => {
+    return {
+      title: item.title,
+      data: item.suggestions,
+    };
+  });
+
   return (
     <Modal
       isVisible={isVisible}
@@ -21,59 +71,18 @@ export default function FoodDetails({
       style={styles.modal}
       propagateSwipe>
       <View style={styles.container}>
-        <Image
-          source={
-            "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/20240219231155.png"
-          }
-          style={styles.foodImgStyle}></Image>
+        <View style={styles.dropBar}></View>
+        <Image source={foodDetail.img} style={styles.foodImgStyle}></Image>
         <View style={styles.foodCardLayout}>
           <SectionList
-            sections={foodSuggestions}
+            sections={foodSuggestionsData}
             keyExtractor={(item, index) => item + index}
             ListHeaderComponent={
               <View>
-                <Text style={[styles.textBase, styles.title]}>早餐</Text>
-                <View style={styles.foodCardContainer}>
-                  <View
-                    style={[
-                      styles.foodCard,
-                      { backgroundColor: lightTheme.bgGreen1 },
-                    ]}>
-                    <Image
-                      source="https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/包子1323.png"
-                      style={styles.foodIcon}></Image>
-                    <Text
-                      style={[styles.textBase, { color: lightTheme.tGreen1 }]}>
-                      包子
-                    </Text>
-                  </View>
-                  <View
-                    style={[
-                      styles.foodCard,
-                      { backgroundColor: lightTheme.bgYellow1 },
-                    ]}>
-                    <Image
-                      source="https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/芒果65448.png"
-                      style={styles.foodIcon}></Image>
-                    <Text
-                      style={[styles.textBase, { color: lightTheme.tYellow1 }]}>
-                      芒果
-                    </Text>
-                  </View>
-                  <View
-                    style={[
-                      styles.foodCard,
-                      { backgroundColor: lightTheme.bgBlue1 },
-                    ]}>
-                    <Image
-                      source="https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/咖啡豆4648.png"
-                      style={styles.foodIcon}></Image>
-                    <Text
-                      style={[styles.textBase, { color: lightTheme.tBlue1 }]}>
-                      咖啡豆
-                    </Text>
-                  </View>
-                </View>
+                <Text style={[styles.textBase, styles.title]}>
+                  {foodDetail.title}
+                </Text>
+                <View style={styles.foodCardContainer}>{foodCards}</View>
               </View>
             }
             renderItem={({ item }) => {
@@ -103,6 +112,7 @@ const styles = StyleSheet.create({
   container: {
     height: "100%",
     backgroundColor: lightTheme.pageBackground,
+    position: "relative",
   },
   foodImgStyle: {
     width: "100%",
@@ -157,5 +167,15 @@ const styles = StyleSheet.create({
     marginLeft: 15,
     marginTop: 15,
     marginBottom: 10,
+  },
+  dropBar: {
+    backgroundColor: lightTheme.bgPurple1,
+    width: 80,
+    height: 7,
+    position: "absolute",
+    left: WIDTH / 2 - 40,
+    top: 20,
+    zIndex: 10,
+    borderRadius: 30,
   },
 });
