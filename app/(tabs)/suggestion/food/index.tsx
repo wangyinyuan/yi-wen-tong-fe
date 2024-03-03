@@ -37,7 +37,7 @@ export default function Food() {
       </View>
       <View style={styles.column}>
         <Image
-          source="https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/0f7835832ed948700571a2ffe47c5e66_720.png"
+          source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/ghost-point.png"
           style={styles.character}
           contentFit="contain"
           placeholder={blurHash}

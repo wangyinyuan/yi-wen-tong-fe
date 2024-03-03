@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "yi-wen-tong",
+    "name": "医智通",
     "slug": "yi-wen-tong",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/app-icon.png",
     "scheme": "yiwentong",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -20,10 +20,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        // "foregroundImage": "./assets/images/adaptive-icon.png",
-        "foregroundImage": "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/319b0fdf8cc9bb8ee9d281e3c970c72d.png",
+        "foregroundImage": "./assets/images/app-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.lumberjack5634.yiwentong"
     },
     "web": {
       "bundler": "metro",
@@ -36,6 +36,14 @@
     "experiments": {
       "typedRoutes": true,
       "tsconfigPaths": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3338c584-6c10-4f56-935d-09fed343d06a"
+      }
     }
   }
 }

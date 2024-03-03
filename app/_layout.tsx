@@ -7,9 +7,19 @@ import { useEffect } from "react";
 import { registerTranslation, zh } from "react-native-paper-dates";
 import { UserProvider } from "@/context/UserContext";
 import { RootSiblingParent } from "react-native-root-siblings";
+import * as Notifications from "expo-notifications";
 
 // 注册 locale
 registerTranslation("zh", zh);
+
+// // 设置消息通知
+// Notifications.setNotificationHandler({
+//   handleNotification: async () => ({
+//     shouldShowAlert: true,
+//     shouldPlaySound: true,
+//     shouldSetBadge: false,
+//   }),
+// });
 
 export {
   // Catch any errors thrown by the Layout component.

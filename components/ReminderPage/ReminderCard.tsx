@@ -2,11 +2,12 @@ import { lightTheme } from "@/constants/Color";
 import { ReminderCardProps } from "@/types/Reminder";
 import { StyleSheet, Text, View } from "react-native";
 
-function showDate(date: Date | undefined) {
-  if (date === undefined) return "";
-  return `${date.getFullYear().toString().slice(2, 4)}/${(date.getMonth() + 1)
+function showDate(dateString: string | undefined) {
+  if (dateString === undefined) return "";
+  const date = new Date(dateString);
+  return `${date.getUTCFullYear().toString().slice(2, 4)}/${(date.getUTCMonth() + 1)
     .toString()
-    .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
+    .padStart(2, "0")}/${date.getUTCDate().toString().padStart(2, "0")}`;
 }
 
 const cardColorGroups = [
@@ -52,7 +53,7 @@ export default function ReminderCard({
             : detail}
         </Text>
         <Text style={[styles.textBase, styles.timeText]}>{`${showDate(
-          dueDate
+          dueDate?.toString()
         )} at ${dueTime}`}</Text>
       </View>
     </View>

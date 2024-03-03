@@ -1,10 +1,14 @@
+import { taskReq } from "@/api/http/task/task";
+import { useTasksList } from "@/api/swr/task/task";
 import { lightTheme } from "@/constants/Color";
+import { toastSuccessConfig } from "@/constants/ToastConfig";
 import type { ReminderForm } from "@/types/Reminder";
 import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Modal from "react-native-modal";
 import { Button } from "react-native-paper";
 import { DatePickerModal, TimePickerModal } from "react-native-paper-dates";
+import Toast from "react-native-root-toast";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { InputBox } from "../Global/InputBox";
 import { MultiInputBox } from "../Global/MultiInputBox";
@@ -50,6 +54,10 @@ export default function FormModal({
   const [tip, setTip] = useState<string>();
   const [dateVisible, setDateVisible] = useState(false);
   const [timeVisible, setTimeVisible] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
+  // 手动改变 tasks 请求
+  const { mutate } = useTasksList();
 
   const onDismissSingle = useCallback(() => {
     setDateVisible(false);
@@ -84,6 +92,15 @@ export default function FormModal({
       setTip(getTip());
     }
   }, [isVisible]);
+
+  // 判断是否可以提交
+  useEffect(() => {
+    if (form.title && form.dueDate && form.dueTime) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [form]);
 
   return (
     <Modal
@@ -167,13 +184,37 @@ export default function FormModal({
           <SubmitButton
             type="cancel"
             handleClick={() => {
+              // 清除数据
+              setFrom({
+                title: "",
+                detail: "",
+                dueDate: undefined,
+                dueTime: "",
+              });
+              // 关闭 Modal
               setVisible(false);
             }}></SubmitButton>
           <SubmitButton
             type="confirm"
-            handleClick={() => {
+            handleClick={async () => {
+              // 提交数据
+              const res = await taskReq(form);
+              if (res && res.msg) {
+                Toast.show(res.msg, toastSuccessConfig);
+              }
+              // 手动触发 tasks 请求
+              mutate();
+              // 清除数据
+              setFrom({
+                title: "",
+                detail: "",
+                dueDate: undefined,
+                dueTime: "",
+              });
+              // 关闭 Modal
               setVisible(false);
-            }}></SubmitButton>
+            }}
+            disabled={!isValid}></SubmitButton>
         </View>
       </View>
     </Modal>

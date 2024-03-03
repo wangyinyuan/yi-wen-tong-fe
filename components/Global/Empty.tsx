@@ -9,7 +9,7 @@ export default function EmptyView() {
     <View style={styles.container}>
       <Image
         style={styles.img}
-        source="http://s9o3yrp6j.hn-bkt.clouddn.com/ghost-cry.png"></Image>
+        source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/ghost-cry.png"></Image>
       <Text style={styles.text}>
         你似乎来到了荒地，工程师正在玩命开发中……(╯°□°）╯︵ ┻━┻
       </Text>

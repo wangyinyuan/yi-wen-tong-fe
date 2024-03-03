@@ -4,4 +4,5 @@ export type SubmitButtonProps = {
   type?: "confirm" | "cancel";
   handleClick?: () => void;
   style?: any;
+  disabled?: boolean;
 };

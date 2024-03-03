@@ -1,7 +1,6 @@
 import { lightTheme } from "@/constants/Color";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-paper";
 
@@ -17,7 +16,7 @@ export default function ErrorView({
     <View style={styles.container}>
       <Image
         style={styles.img}
-        source="http://s9o3yrp6j.hn-bkt.clouddn.com/ghost-bian.png"></Image>
+        source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/ghost-bian.png"></Image>
       <Text style={styles.text}>生活总有意外，有时候不能太急( •̀ ω •́ )✧</Text>
       <Button
         onPress={() => {

@@ -1,3 +1,5 @@
+import { useTasksList } from "@/api/swr/task/task";
+import Indicator from "@/components/Global/Indicator";
 import FormModal from "@/components/ReminderPage/FormModal";
 import ReminderCard from "@/components/ReminderPage/ReminderCard";
 import { lightTheme } from "@/constants/Color";
@@ -18,38 +20,25 @@ export default function ReminderPage() {
     dueTime: "",
   });
 
+  // 获取卡片数据
+  const { tasks, isLoading } = useTasksList();
+
+  if (isLoading || !tasks) return <Indicator animating={true}></Indicator>;
+
   return (
-    <View>
+    <View style={{flex: 1}}>
       <ScrollView contentContainerStyle={styles.container}>
-        <ReminderCard
-          title={form.title}
-          detail={form.detail}
-          dueDate={form.dueDate}
-          dueTime={form.dueTime}></ReminderCard>
-        <ReminderCard
-          title={form.title}
-          detail={form.detail}
-          dueDate={form.dueDate}
-          dueTime={form.dueTime}
-          index={1}></ReminderCard>
-        <ReminderCard
-          title={form.title}
-          detail={form.detail}
-          dueDate={form.dueDate}
-          dueTime={form.dueTime}
-          index={2}></ReminderCard>
-        <ReminderCard
-          title={form.title}
-          detail={form.detail}
-          dueDate={form.dueDate}
-          dueTime={form.dueTime}
-          index={3}></ReminderCard>
-        <ReminderCard
-          title={form.title}
-          detail={form.detail}
-          dueDate={form.dueDate}
-          dueTime={form.dueTime}
-          index={4}></ReminderCard>
+        {tasks.map((item, index) => {
+          return (
+            <ReminderCard
+              title={item.title}
+              detail={item.detail}
+              dueDate={item.dueDate}
+              dueTime={item.dueTime}
+              index={index}
+              key={index}></ReminderCard>
+          );
+        })}
         <FormModal
           isVisible={isVisible}
           setVisible={setVisible}

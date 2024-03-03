@@ -17,7 +17,7 @@ export default function Suggestions() {
         <View>
           <Image
             source={
-              "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/0edeceb92ac5d3646c851aa106cab4f6.png"
+              "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/ghost-bread.png"
             }
             style={[style.img, style.foodImg]}></Image>
           <Text style={[style.text, style.foodText]}>饮</Text>
@@ -46,7 +46,7 @@ export default function Suggestions() {
         <View>
           <Image
             source={
-              "https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/CDA2B2650E9A53EF46B6A691D75B2473.png"
+              "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/s-swim.png"
             }
             style={[style.img, style.sportsImg]}></Image>
           <Text style={[style.text, style.sportsText]}>运</Text>

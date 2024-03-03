@@ -1,10 +1,9 @@
 import { lightTheme } from "@/constants/Color";
-import { Image } from "expo-image";
-import { Slot, Stack } from "expo-router";
-import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 import { useUser } from "@/context/UserContext";
+import { Image } from "expo-image";
+import { Slot, Stack, router } from "expo-router";
 import { useEffect } from "react";
-import { router } from "expo-router";
+import { KeyboardAvoidingView, ScrollView, StyleSheet } from "react-native";
 
 export default function LoginLayout() {
   // 如果已经有用户 token, 则直接跳转到主页
@@ -21,7 +20,7 @@ export default function LoginLayout() {
       style={{ flex: 1, backgroundColor: lightTheme.pageBackground }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Image
-          source="https://cdn.jsdelivr.net/gh/wangyinyuan/Picgo/9755d89cc05fc2c812cc66b83a8248cd.png"
+          source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/bg-pix.png"
           style={styles.img}
         />
         <Slot></Slot>

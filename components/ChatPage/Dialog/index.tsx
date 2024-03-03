@@ -24,7 +24,7 @@ const endMessage = (title: string) => {
     user: {
       _id: 1,
       name: "Bot",
-      avatar: "http://s9o3yrp6j.hn-bkt.clouddn.com/bot.png",
+      avatar: "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/bot.png",
     },
     quickReplies: {
       type: "radio",
@@ -47,7 +47,7 @@ const symptomMessage = (values: any[]) => {
     user: {
       _id: 1,
       name: "Bot",
-      avatar: "http://s9o3yrp6j.hn-bkt.clouddn.com/bot.png",
+      avatar: "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/bot.png",
     },
     quickReplies: {
       type: "checkbox",

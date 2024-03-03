@@ -7,6 +7,7 @@ export default function SubmitButton({
   type = "confirm",
   handleClick = () => {},
   style,
+  disabled = false,
 }: SubmitButtonProps) {
   const text = type === "confirm" ? "确认" : "取消";
   const specificStyle = type === "confirm" ? styles.confirm : styles.cancel;
@@ -17,7 +18,7 @@ export default function SubmitButton({
       mode="text"
       onPress={handleClick}
       textColor={type === "confirm" ? lightTheme.tGreen1 : lightTheme.tGray3}
-      >
+      disabled={disabled}>
       {text}
     </Button>
   );
