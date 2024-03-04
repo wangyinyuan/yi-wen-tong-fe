@@ -36,7 +36,7 @@ export default function Sports() {
 
   // 管理当前选中的内容
   useEffect(() => {
-    if (!sports) return;
+    if (!sports || !sports.carouselData) return;
     const newItemStatus = sports.carouselData.reduce((acc, item, index) => {
       return { ...acc, [item.value]: !index ? true : false };
     }, {});
@@ -45,7 +45,7 @@ export default function Sports() {
 
   // 计算每个卡片的偏移量
   useEffect(() => {
-    if (!sports) return;
+    if (!sports || !sports.contentList || !sports.frequencyList) return;
     const content = [];
     const frequency = [];
     for (let i = 0; i < sports.contentList.length; i++) {
