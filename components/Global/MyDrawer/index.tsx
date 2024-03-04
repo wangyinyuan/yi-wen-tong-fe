@@ -2,6 +2,7 @@ import { lightTheme } from "@/constants/Color";
 import { toastSuccessConfig } from "@/constants/ToastConfig";
 import { useUser } from "@/context/UserContext";
 import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { DrawerActions } from "@react-navigation/native";
 import { router } from "expo-router";
 import * as React from "react";
 import { StyleSheet } from "react-native";
@@ -70,6 +71,7 @@ const MyDrawer = (props: any) => {
         )}
         onPress={() => {
           setActive("info");
+          props.navigation.dispatch(DrawerActions.closeDrawer());
           props.navigation.navigate("settings/info");
         }}
         theme={customItem}
@@ -87,6 +89,7 @@ const MyDrawer = (props: any) => {
         )}
         onPress={() => {
           setActive("account");
+          props.navigation.dispatch(DrawerActions.closeDrawer());
           props.navigation.navigate("settings/account");
         }}
         theme={customItem}
@@ -101,6 +104,7 @@ const MyDrawer = (props: any) => {
         onPress={async () => {
           setActive("");
           await logout();
+          props.navigation.dispatch(DrawerActions.closeDrawer());
           Toast.show("退出登录成功！", toastSuccessConfig);
           router.replace("/login/");
         }}

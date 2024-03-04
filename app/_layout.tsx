@@ -1,13 +1,12 @@
 import MyDrawer from "@/components/Global/MyDrawer";
+import { UserProvider } from "@/context/UserContext";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { SplashScreen } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useEffect } from "react";
 import { registerTranslation, zh } from "react-native-paper-dates";
-import { UserProvider } from "@/context/UserContext";
 import { RootSiblingParent } from "react-native-root-siblings";
-import * as Notifications from "expo-notifications";
 
 // 注册 locale
 registerTranslation("zh", zh);
@@ -23,7 +22,7 @@ registerTranslation("zh", zh);
 
 export {
   // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
+  ErrorBoundary
 } from "expo-router";
 
 export const unstable_settings = {
@@ -73,8 +72,8 @@ function RootLayoutNav() {
       drawerContent={(props) => <MyDrawer {...props} />}
       screenOptions={{ headerShown: false }}>
       <Drawer.Screen name="(tabs)" options={{ headerShown: false }} />
-      <Drawer.Screen name="settings/info" options={{ headerShown: true }} />
-      <Drawer.Screen name="settings/account" options={{ headerShown: true }} />
+      {/* <Drawer.Screen name="settings/info" options={{ headerShown: true }} />
+      <Drawer.Screen name="settings/account" options={{ headerShown: true }} /> */}
     </Drawer>
   );
 }

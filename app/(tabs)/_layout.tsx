@@ -6,6 +6,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { DrawerActions } from "@react-navigation/native";
 import * as Device from "expo-device";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Notifications from "expo-notifications";
@@ -91,7 +92,7 @@ export default function TabsLayout() {
               style={{ marginLeft: 10 }}
               onPress={() => {
                 // @ts-ignore
-                navigation.openDrawer();
+                navigation.dispatch(DrawerActions.toggleDrawer());
               }}
             />
           );
