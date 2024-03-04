@@ -4,6 +4,7 @@ import Indicator from "@/components/Global/Indicator";
 import FoodCard from "@/components/SuggestionPage/Food/FoodCard";
 import { lightTheme } from "@/constants/Color";
 import { blurHash } from "@/constants/imgHolder";
+import { imgHost } from "@/constants/imgHost";
 import { Image } from "expo-image";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
@@ -41,7 +42,7 @@ export default function Food() {
       </View>
       <View style={styles.column}>
         <Image
-          source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/ghost-point.png"
+          source={`${imgHost}foodGeneral/static/ghost-point.png`}
           style={styles.character}
           contentFit="contain"
           placeholder={blurHash}

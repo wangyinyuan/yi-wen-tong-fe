@@ -1,4 +1,5 @@
 import { lightTheme } from "@/constants/Color";
+import { imgHost } from "@/constants/imgHost";
 import { useUser } from "@/context/UserContext";
 import { Image } from "expo-image";
 import { Slot, Stack, router } from "expo-router";
@@ -20,7 +21,7 @@ export default function LoginLayout() {
       style={{ flex: 1, backgroundColor: lightTheme.pageBackground }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Image
-          source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/bg-pix.png"
+          source={`${imgHost}foodGeneral/static/bg-pix.png`}
           style={styles.img}
         />
         <Slot></Slot>

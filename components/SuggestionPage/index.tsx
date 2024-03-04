@@ -1,4 +1,5 @@
 import { lightTheme } from "@/constants/Color";
+import { imgHost } from "@/constants/imgHost";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -16,9 +17,7 @@ export default function Suggestions() {
         }}>
         <View>
           <Image
-            source={
-              "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/ghost-bread.png"
-            }
+            source={`${imgHost}foodGeneral/static/ghost-bread.png`}
             style={[style.img, style.foodImg]}></Image>
           <Text style={[style.text, style.foodText]}>饮</Text>
           <Text
@@ -45,9 +44,7 @@ export default function Suggestions() {
         }}>
         <View>
           <Image
-            source={
-              "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/s-swim.png"
-            }
+            source={`${imgHost}foodGeneral/static/s-swim.png`}
             style={[style.img, style.sportsImg]}></Image>
           <Text style={[style.text, style.sportsText]}>运</Text>
           <Text

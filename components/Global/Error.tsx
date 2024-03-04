@@ -1,4 +1,5 @@
 import { lightTheme } from "@/constants/Color";
+import { imgHost } from "@/constants/imgHost";
 import { Image } from "expo-image";
 import { router } from "expo-router";
 import { StyleSheet, Text, View } from "react-native";
@@ -13,9 +14,7 @@ export default function ErrorView({
 }) {
   return (
     <View style={styles.container}>
-      <Image
-        style={styles.img}
-        source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/ghost-bian.png"></Image>
+      <Image style={styles.img} source={`${imgHost}ghost-bian.png`}></Image>
       <Text style={styles.text}>生活总有意外，有时候不能太急( •̀ ω •́ )✧</Text>
       <Text style={[styles.text, styles.hintText]}>
         （⚠️：如果你是新用户，可能是后端数据还没生成好，可以稍等 1-2
@@ -54,7 +53,7 @@ const styles = StyleSheet.create({
   },
   hintText: {
     fontSize: 14,
-    fontStyle: 'normal',
-    color: lightTheme.tGray3
-  }
+    fontStyle: "normal",
+    color: lightTheme.tGray3,
+  },
 });

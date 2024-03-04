@@ -12,6 +12,7 @@ import { GiftedChat, User } from "react-native-gifted-chat";
 import Toast from "react-native-root-toast";
 import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
+import { imgHost } from "@/constants/imgHost";
 
 const endTitle = "如果你要结束问诊，请点击这个对话框下面的“结束问诊”按钮";
 
@@ -24,7 +25,7 @@ const endMessage = (title: string) => {
     user: {
       _id: 1,
       name: "Bot",
-      avatar: "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/bot.png",
+      avatar: `${imgHost}bot.png`,
     },
     quickReplies: {
       type: "radio",
@@ -47,7 +48,7 @@ const symptomMessage = (values: any[]) => {
     user: {
       _id: 1,
       name: "Bot",
-      avatar: "https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/bot.png",
+      avatar: `${imgHost}bot.png`,
     },
     quickReplies: {
       type: "checkbox",

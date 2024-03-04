@@ -11,6 +11,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { imgHost } from "@/constants/imgHost";
 
 export default function ReportPage() {
   const { width, height } = useWindowDimensions();
@@ -22,7 +23,7 @@ export default function ReportPage() {
   return (
     <View style={styles.container}>
       <Image
-        source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/foodGeneral/static/bg-flowr.png"
+        source={`${imgHost}foodGeneral/static/bg-flowr.png`}
         style={[styles.decorationImg, { width: width - 50 }]}
         contentFit="contain"></Image>
       <Text></Text>
