@@ -11,13 +11,16 @@ export default function ErrorView({
   pathname: string;
   params?: any;
 }) {
-
   return (
     <View style={styles.container}>
       <Image
         style={styles.img}
         source="https://yzt-1314519343.cos.ap-nanjing.myqcloud.com/ghost-bian.png"></Image>
       <Text style={styles.text}>生活总有意外，有时候不能太急( •̀ ω •́ )✧</Text>
+      <Text style={[styles.text, styles.hintText]}>
+        （⚠️：如果你是新用户，可能是后端数据还没生成好，可以稍等 1-2
+        分钟后重试😘）
+      </Text>
       <Button
         onPress={() => {
           // @ts-ignore
@@ -49,4 +52,9 @@ const styles = StyleSheet.create({
     height: 150,
     marginBottom: 30,
   },
+  hintText: {
+    fontSize: 14,
+    fontStyle: 'normal',
+    color: lightTheme.tGray3
+  }
 });

@@ -1,5 +1,6 @@
 import { registerReq } from "@/api/http/user/register";
 import { InputBox } from "@/components/Global/InputBox";
+import BugHintModal from "@/components/RegisterPage/BugHintModal";
 import { lightTheme } from "@/constants/Color";
 import { toastSuccessConfig } from "@/constants/ToastConfig";
 import { useUser } from "@/context/UserContext";
@@ -11,6 +12,9 @@ import { Button, HelperText } from "react-native-paper";
 import Toast from "react-native-root-toast";
 
 export default function Register() {
+  // 控制公告栏
+  const [isVisible, setIsVisible] = useState<boolean>(true)
+
   // 表单信息
   const [form, setForm] = useState<{
     email: string;
@@ -57,6 +61,7 @@ export default function Register() {
 
   return (
     <View style={styles.container}>
+      <BugHintModal isVisible={isVisible} handleClose={() => setIsVisible(false)}></BugHintModal>
       <View style={styles.titleLayout}>
         <Text style={[styles.textBase, styles.title]}>注册</Text>
         <View style={styles.registerLayout}>
