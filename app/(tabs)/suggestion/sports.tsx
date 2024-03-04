@@ -72,7 +72,14 @@ export default function Sports() {
   if (isLoading || !sports) return <Indicator animating={true} />;
 
   // 无数据
-  if (!sports.carouselData || !sports.contentList || !sports.frequencyList) {
+  if (
+    !sports.carouselData ||
+    !sports.contentList ||
+    !sports.frequencyList ||
+    !sports.carouselData.length ||
+    !sports.contentList.length ||
+    !sports.frequencyList.length
+  ) {
     return <ErrorView pathname="/suggestion/"></ErrorView>;
   }
 

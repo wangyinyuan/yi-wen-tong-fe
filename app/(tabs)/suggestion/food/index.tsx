@@ -1,4 +1,5 @@
 import { useFoodCardsInfo } from "@/api/swr/advice/food";
+import ErrorView from "@/components/Global/Error";
 import Indicator from "@/components/Global/Indicator";
 import FoodCard from "@/components/SuggestionPage/Food/FoodCard";
 import { lightTheme } from "@/constants/Color";
@@ -21,6 +22,9 @@ export default function Food() {
 
   // 如果数据正在加载或者数据为空则显示加载指示器
   if (isLoading || !foodCards) return <Indicator animating={true} />;
+
+  // 如果数据为空则显示错误页面
+  if (!foodCards.length) return <ErrorView pathname="/suggestion/"/>;
 
   return (
     <ScrollView contentContainerStyle={[styles.row, styles.scrollLayout]}>
