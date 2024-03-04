@@ -14,7 +14,7 @@ export default function ErrorView({
 }) {
   return (
     <View style={styles.container}>
-      <Image style={styles.img} source={`${imgHost}ghost-bian.png`}></Image>
+      <Image style={styles.img} source={`${imgHost}building.png`}></Image>
       <Text style={styles.text}>生活总有意外，有时候不能太急( •̀ ω •́ )✧</Text>
       <Text style={[styles.text, styles.hintText]}>
         （⚠️：如果你是新用户，可能是后端数据还没生成好，可以稍等 1-2
