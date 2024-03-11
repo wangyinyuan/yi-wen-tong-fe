@@ -14,32 +14,6 @@ import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
 import { imgHost } from "@/constants/imgHost";
 
-const endTitle = "如果你要结束问诊，请点击这个对话框下面的“结束问诊”按钮";
-
-// 生成结束问诊消息（需要传入文本）
-const endMessage = (title: string) => {
-  return {
-    _id: generateID(),
-    text: title,
-    createdAt: getTime(new Date()),
-    user: {
-      _id: 1,
-      name: "Bot",
-      avatar: `${imgHost}bot.png`,
-    },
-    quickReplies: {
-      type: "radio",
-      keepIt: true,
-      values: [
-        {
-          title: "😘 结束问诊",
-          value: "end",
-        },
-      ],
-    },
-  };
-};
-
 const symptomMessage = (values: any[]) => {
   return {
     _id: generateID(),

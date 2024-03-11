@@ -41,7 +41,7 @@ export default function Suggestions() {
         activeOpacity={activeOpacity}
         onPress={() => {
           router.push("/suggestion/sports");
-        }}>
+        }}> 
         <View>
           <Image
             source={`${imgHost}foodGeneral/static/s-swim.png`}
