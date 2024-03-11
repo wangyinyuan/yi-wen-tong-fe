@@ -1,1 +1,1 @@
-export const getStreamReqPath = "/chat/stream";
+export const getStreamReqPath = "/chat/stream/";

@@ -1,18 +1,22 @@
 import { endChatReq } from "@/api/http/chat/end";
 import { newChatReq, newMessageReq } from "@/api/http/chat/new";
 import { repliesReq } from "@/api/http/chat/replies";
-import { useChatMessageHistory } from "@/api/swr/chat/history";
+import { getStreamReqPath } from "@/api/http/chat/stream";
 import { useUserProfile } from "@/api/swr/user/profile";
 import { toastErrorConfig, toastSuccessConfig } from "@/constants/ToastConfig";
+import { USER_TOKEN } from "@/constants/Token";
+import { imgHost } from "@/constants/imgHost";
+import { SERVER_URL } from "@/constants/request";
 import type { MyIMessage } from "@/types/ChatPage";
 import generateID from "@/utils/generateId";
 import { getTime } from "@/utils/getTime";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import RNEventSource from "react-native-event-source";
 import { GiftedChat, User } from "react-native-gifted-chat";
 import Toast from "react-native-root-toast";
 import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
-import { imgHost } from "@/constants/imgHost";
 
 const symptomMessage = (values: any[]) => {
   return {
@@ -42,6 +46,19 @@ export default function Dialog() {
   const [isReplying, setIsReplying] = useState<boolean>(false);
   // 判断是否应该发起新的一轮对话
   const [isNewChat, setIsNewChat] = useState<boolean>(true);
+  // 消息流对象
+  const [messageStream, setMessageStream] = useState<RNEventSource | null>(
+    null
+  );
+  // 用户 token
+  const [token, setToken] = useState<string>("" as string);
+  // stream chat 选项
+  const options = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    method: "GET",
+  }
 
   // 获取用户发送的信息
   const { profile } = useUserProfile();
@@ -56,26 +73,35 @@ export default function Dialog() {
   );
 
   // 获取历史消息
-  const { history, isMessagesLoading, setLocalHistory } = useChatMessageHistory(
-    { _id: chatId }
-  );
+  // const { history, isMessagesLoading, setLocalHistory } = useChatMessageHistory(
+  //   { _id: chatId }
+  // );
+
+  // 设置用户 token
+  useEffect(() => {
+    const getToken = async () => {
+      const token = await AsyncStorage.getItem(USER_TOKEN);
+      setToken(token as string);
+    };
+    getToken();
+  }, [profile?._id]);
 
   // 如果 history 收到的结果大于消息数组，则替换消息数组
-  useEffect(() => {
-    if (!history) return;
-    if (history.messages.length > messages.length) {
-      setMessages(history.messages as MyIMessage[]);
-      // 结束思考
-      setIsThinking(false);
-    }
-  }, [history, messages]);
+  // useEffect(() => {
+  //   if (!history) return;
+  //   if (history.messages.length > messages.length) {
+  //     setMessages(history.messages as MyIMessage[]);
+  //     // 结束思考
+  //     setIsThinking(false);
+  //   }
+  // }, [history, messages]);
 
   // 新开始一轮对话的时候载入初始消息
   useEffect(() => {
     const getNewMessages = async () => {
       const res = await newChatReq();
       if (res) {
-        setLocalHistory(undefined);
+        // setLocalHistory(undefined);
         setChatId(res._id);
         setMessages(res.messages as MyIMessage[]);
       }
@@ -85,6 +111,26 @@ export default function Dialog() {
       setIsNewChat(false);
     }
   }, [isHistoryLoading, isNewChat]);
+
+  // 创建并监听消息流
+  function connectStream() {
+    const stream = new RNEventSource(`${SERVER_URL}${getStreamReqPath}${chatId}`, options);
+    stream.addEventListener("message", handleStreamMessage);
+    setMessageStream(stream);
+  }
+
+  // 处理消息流
+  function handleStreamMessage(data: any) {
+    console.log("stream message", data);
+  }
+
+  // 关闭消息流
+  function closeStream() {
+    if (messageStream) {
+      messageStream.removeAllListeners();
+      messageStream.close();
+    }
+  }
 
   const onQuickReply = async (replies: any[]) => {
     if (isReplying) return;
@@ -134,12 +180,16 @@ export default function Dialog() {
       // 禁止用户发消息
       setIsThinking(true);
 
+      // 更新现有的消息数组
       setMessages((previousMessages) => {
         const endMessage = previousMessages[0];
         const noEndMessage = previousMessages.slice(1);
         const updatedMessages = [endMessage, ...newMessages];
         return GiftedChat.append(noEndMessage, updatedMessages as MyIMessage[]);
       });
+
+      // 建立 stream 连接
+      connectStream();
     },
     [chatId, user]
   );

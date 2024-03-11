@@ -1,12 +1,13 @@
 import { toastErrorConfig, toastWarningConfig } from "@/constants/ToastConfig";
 import { USER_TOKEN } from "@/constants/Token";
+import { SERVER_URL } from "@/constants/request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios, { AxiosRequestConfig } from "axios";
 import { router } from "expo-router";
 import Toast from "react-native-root-toast";
 
 const httpInstance = axios.create({
-  baseURL: "https://api.firlin.cn:8080",
+  baseURL: SERVER_URL,
   timeout: 10000,
 });
 
