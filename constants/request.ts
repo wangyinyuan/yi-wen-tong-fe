@@ -1,1 +1,1 @@
-export const SERVER_URL = "https://api.firlin.cn:8080";
+export const SERVER_URL = "https://api.firlin.cn:8088";

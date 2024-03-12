@@ -1,5 +1,5 @@
 import { endChatReq } from "@/api/http/chat/end";
-import { newChatReq, newMessageReq } from "@/api/http/chat/new";
+import { newChatReq } from "@/api/http/chat/new";
 import { repliesReq } from "@/api/http/chat/replies";
 import { useUserProfile } from "@/api/swr/user/profile";
 import { toastErrorConfig, toastSuccessConfig } from "@/constants/ToastConfig";
@@ -11,9 +11,12 @@ import { getTime } from "@/utils/getTime";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 // import RNEventSource from "react-native-event-source";
+import { newMessageReq } from "@/api/http/chat/new";
+import { getStreamReqPath } from "@/api/http/chat/stream";
+import { SERVER_URL } from "@/constants/request";
 import { GiftedChat, User } from "react-native-gifted-chat";
 import Toast from "react-native-root-toast";
-import EventSource, { EventSourceListener } from "react-native-sse";
+import EventSource from "react-native-sse";
 import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
 
@@ -53,26 +56,9 @@ export default function Dialog() {
   const options = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer sk-sRldp5oExjp43Atm2801D0E98c244d179eE3B3F018D65535`,
+      Authorization: `Bearer ${token}`,
     },
-    method: "POST",
-    body: JSON.stringify({
-      model: "gpt-3.5-turbo-0125",
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful assistant.",
-        },
-        {
-          role: "user",
-          content: "What is the meaning of life? Please give me a long and thoughtful response.",
-        },
-      ],
-      max_tokens: 600,
-      n: 1,
-      temperature: 0.7,
-      stream: true,
-    }),
+    method: "GET",
     pollingInterval: 0,
   };
 
@@ -190,24 +176,51 @@ export default function Dialog() {
   };
 
   // 处理消息流
-  const handleStreamMessage: EventSourceListener = (event: any) => {
-    if (event.data === "[DONE]") {
-      setIsThinking(false);
-      closeStream();
-      return;
-    }
-    console.log("stream message", event);
-    console.log(new Date());
-  };
+  // const handleStreamMessage: EventSourceListener = (event: any) => {
+  //   if (event.data === "end") {
+  //     setIsThinking(false);
+  //     closeStream();
+  //     return;
+  //   }
+  //   const data = JSON.parse(event.data);
+  //   setText(data.data.text);
+  // };
 
   // 创建并监听消息流
   function connectStream() {
     const es = new EventSource(
-      // `${SERVER_URL}${getStreamReqPath}${chatId}`,
-      `https://api.zhiyunai168.com/v1/chat/completions`,
+      `${SERVER_URL}${getStreamReqPath}${chatId}`,
+      // `https://api.zhiyunai168.com/v1/chat/completions`,
       options
     );
-    es.addEventListener("message", handleStreamMessage);
+    es.addEventListener("message", (event: any) => {
+      if (event.data === "end") {
+        setIsThinking(false);
+        closeStream();
+        return;
+      }
+      const data = JSON.parse(event.data);
+
+      setMessages((previousMessages) => {
+        const endMessage = previousMessages[0];
+        if (previousMessages[1]._id === data.data._id) {
+          // 替换倒数第一个消息， 否则增加到原来倒数一个消息的后面
+          const otherMessages = previousMessages.slice(2);
+          const updatedMessages = [endMessage, data.data as MyIMessage];
+          return GiftedChat.append(
+            otherMessages,
+            updatedMessages as MyIMessage[]
+          );
+        } else {
+          const noEndMessage = previousMessages.slice(1);
+          const updatedMessages = [endMessage, data.data as MyIMessage];
+          return GiftedChat.append(
+            noEndMessage,
+            updatedMessages as MyIMessage[]
+          );
+        }
+      });
+    });
   }
 
   const onQuickReply = async (replies: any[]) => {
