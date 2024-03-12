@@ -16,7 +16,7 @@ export const newMessageReq = ({
   message: MyIMessage;
 }) => {
   return request({
-    url: "/chat/new/message",
+    url: "/chat/new/message/stream",
     method: "post",
     data: {
       _id,

@@ -1,20 +1,19 @@
 import { endChatReq } from "@/api/http/chat/end";
 import { newChatReq, newMessageReq } from "@/api/http/chat/new";
 import { repliesReq } from "@/api/http/chat/replies";
-import { getStreamReqPath } from "@/api/http/chat/stream";
 import { useUserProfile } from "@/api/swr/user/profile";
 import { toastErrorConfig, toastSuccessConfig } from "@/constants/ToastConfig";
 import { USER_TOKEN } from "@/constants/Token";
 import { imgHost } from "@/constants/imgHost";
-import { SERVER_URL } from "@/constants/request";
 import type { MyIMessage } from "@/types/ChatPage";
 import generateID from "@/utils/generateId";
 import { getTime } from "@/utils/getTime";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import RNEventSource from "react-native-event-source";
+// import RNEventSource from "react-native-event-source";
 import { GiftedChat, User } from "react-native-gifted-chat";
 import Toast from "react-native-root-toast";
+import EventSource, { EventSourceListener } from "react-native-sse";
 import CustomBubble from "./components/CustomBubble";
 import { renderSend } from "./components/CustomInput";
 
@@ -47,18 +46,35 @@ export default function Dialog() {
   // 判断是否应该发起新的一轮对话
   const [isNewChat, setIsNewChat] = useState<boolean>(true);
   // 消息流对象
-  const [messageStream, setMessageStream] = useState<RNEventSource | null>(
-    null
-  );
+  const [messageStream, setMessageStream] = useState<EventSource | null>(null);
   // 用户 token
   const [token, setToken] = useState<string>("" as string);
   // stream chat 选项
   const options = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+      Authorization: `Bearer sk-sRldp5oExjp43Atm2801D0E98c244d179eE3B3F018D65535`,
     },
-    method: "GET",
-  }
+    method: "POST",
+    body: JSON.stringify({
+      model: "gpt-3.5-turbo-0125",
+      messages: [
+        {
+          role: "system",
+          content: "You are a helpful assistant.",
+        },
+        {
+          role: "user",
+          content: "What is the meaning of life? Please give me a long and thoughtful response.",
+        },
+      ],
+      max_tokens: 600,
+      n: 1,
+      temperature: 0.7,
+      stream: true,
+    }),
+    pollingInterval: 0,
+  };
 
   // 获取用户发送的信息
   const { profile } = useUserProfile();
@@ -112,24 +128,86 @@ export default function Dialog() {
     }
   }, [isHistoryLoading, isNewChat]);
 
-  // 创建并监听消息流
-  function connectStream() {
-    const stream = new RNEventSource(`${SERVER_URL}${getStreamReqPath}${chatId}`, options);
-    stream.addEventListener("message", handleStreamMessage);
-    setMessageStream(stream);
-  }
-
   // 处理消息流
-  function handleStreamMessage(data: any) {
-    console.log("stream message", data);
-  }
+  // function handleStreamMessage(data: any) {
+  //   // console.log("stream message", JSON.parse(data.data).data);
+  //   console.log("stream message", data);
+
+  //   // 当发送完毕后，销毁消息流，结束思考
+  //   if (data.data === "end") {
+  //     setIsThinking(false);
+  //     closeStream();
+  //     return;
+  //   }
+  // }
 
   // 关闭消息流
-  function closeStream() {
+  // function closeStream() {
+  //   if (messageStream) {
+  //     messageStream.removeAllListeners();
+  //     messageStream.close();
+  //   }
+  // }
+  // const closeStream = useCallback(() => {
+  //   if (messageStream) {
+  //     messageStream.removeAllListeners();
+  //     messageStream.close();
+  //   }
+  // }, [messageStream]);
+
+  // const handleStreamMessage = useCallback(
+  //   (data: any) => {
+  //     // console.log("stream message", JSON.parse(data.data).data);
+  //     console.log("stream message", data);
+  //     console.log(new Date());
+
+  //     // 当发送完毕后，销毁消息流，结束思考
+  //     if (data.data === "end") {
+  //       setIsThinking(false);
+  //       closeStream();
+  //       return;
+  //     }
+  //   },
+  //   [setIsThinking]
+  // );
+
+  // // 创建并监听消息流
+  // function connectStream() {
+  //   const stream = new RNEventSource(
+  //     `${SERVER_URL}${getStreamReqPath}${chatId}`,
+  //     options
+  //   );
+  //   stream.addEventListener("message", handleStreamMessage);
+  //   setMessageStream(stream);
+  // }
+
+  // 关闭消息流
+  const closeStream = () => {
     if (messageStream) {
-      messageStream.removeAllListeners();
+      messageStream.removeAllEventListeners();
       messageStream.close();
     }
+  };
+
+  // 处理消息流
+  const handleStreamMessage: EventSourceListener = (event: any) => {
+    if (event.data === "[DONE]") {
+      setIsThinking(false);
+      closeStream();
+      return;
+    }
+    console.log("stream message", event);
+    console.log(new Date());
+  };
+
+  // 创建并监听消息流
+  function connectStream() {
+    const es = new EventSource(
+      // `${SERVER_URL}${getStreamReqPath}${chatId}`,
+      `https://api.zhiyunai168.com/v1/chat/completions`,
+      options
+    );
+    es.addEventListener("message", handleStreamMessage);
   }
 
   const onQuickReply = async (replies: any[]) => {
