@@ -2,7 +2,7 @@
   "expo": {
     "name": "医智通",
     "slug": "yi-wen-tong",
-    "version": "1.4.1",
+    "version": "1.5.1",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon.png",
     "scheme": "yiwentong",
