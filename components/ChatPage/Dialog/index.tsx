@@ -74,11 +74,6 @@ export default function Dialog() {
     [profile?._id, profile?.name, profile?.avatar]
   );
 
-  // 获取历史消息
-  // const { history, isMessagesLoading, setLocalHistory } = useChatMessageHistory(
-  //   { _id: chatId }
-  // );
-
   // 设置用户 token
   useEffect(() => {
     const getToken = async () => {
@@ -88,15 +83,6 @@ export default function Dialog() {
     getToken();
   }, [profile?._id]);
 
-  // 如果 history 收到的结果大于消息数组，则替换消息数组
-  // useEffect(() => {
-  //   if (!history) return;
-  //   if (history.messages.length > messages.length) {
-  //     setMessages(history.messages as MyIMessage[]);
-  //     // 结束思考
-  //     setIsThinking(false);
-  //   }
-  // }, [history, messages]);
 
   // 新开始一轮对话的时候载入初始消息
   useEffect(() => {
@@ -114,58 +100,6 @@ export default function Dialog() {
     }
   }, [isHistoryLoading, isNewChat]);
 
-  // 处理消息流
-  // function handleStreamMessage(data: any) {
-  //   // console.log("stream message", JSON.parse(data.data).data);
-  //   console.log("stream message", data);
-
-  //   // 当发送完毕后，销毁消息流，结束思考
-  //   if (data.data === "end") {
-  //     setIsThinking(false);
-  //     closeStream();
-  //     return;
-  //   }
-  // }
-
-  // 关闭消息流
-  // function closeStream() {
-  //   if (messageStream) {
-  //     messageStream.removeAllListeners();
-  //     messageStream.close();
-  //   }
-  // }
-  // const closeStream = useCallback(() => {
-  //   if (messageStream) {
-  //     messageStream.removeAllListeners();
-  //     messageStream.close();
-  //   }
-  // }, [messageStream]);
-
-  // const handleStreamMessage = useCallback(
-  //   (data: any) => {
-  //     // console.log("stream message", JSON.parse(data.data).data);
-  //     console.log("stream message", data);
-  //     console.log(new Date());
-
-  //     // 当发送完毕后，销毁消息流，结束思考
-  //     if (data.data === "end") {
-  //       setIsThinking(false);
-  //       closeStream();
-  //       return;
-  //     }
-  //   },
-  //   [setIsThinking]
-  // );
-
-  // // 创建并监听消息流
-  // function connectStream() {
-  //   const stream = new RNEventSource(
-  //     `${SERVER_URL}${getStreamReqPath}${chatId}`,
-  //     options
-  //   );
-  //   stream.addEventListener("message", handleStreamMessage);
-  //   setMessageStream(stream);
-  // }
 
   // 关闭消息流
   const closeStream = () => {
@@ -175,16 +109,6 @@ export default function Dialog() {
     }
   };
 
-  // 处理消息流
-  // const handleStreamMessage: EventSourceListener = (event: any) => {
-  //   if (event.data === "end") {
-  //     setIsThinking(false);
-  //     closeStream();
-  //     return;
-  //   }
-  //   const data = JSON.parse(event.data);
-  //   setText(data.data.text);
-  // };
 
   // 创建并监听消息流
   function connectStream() {
@@ -194,12 +118,20 @@ export default function Dialog() {
       options
     );
     es.addEventListener("message", (event: any) => {
-      if (event.data === "end") {
+      const data = JSON.parse(event.data);
+
+      if (data.data === "end") {
         setIsThinking(false);
         closeStream();
         return;
       }
-      const data = JSON.parse(event.data);
+
+    
+      console.log("type of data", typeof data);
+      console.log("type of data.data", typeof data.data);
+      console.log("type of data.data._id", typeof data.data._id);
+      console.log("type of data.data.text", typeof data.data.text);
+      console.log("type of data.data.user", typeof data.data.user);
 
       setMessages((previousMessages) => {
         const endMessage = previousMessages[0];
@@ -221,6 +153,7 @@ export default function Dialog() {
         }
       });
     });
+    setMessageStream(es);
   }
 
   const onQuickReply = async (replies: any[]) => {
