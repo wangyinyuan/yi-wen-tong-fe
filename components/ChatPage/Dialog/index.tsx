@@ -126,12 +126,11 @@ export default function Dialog() {
         return;
       }
 
-    
-      console.log("type of data", typeof data);
-      console.log("type of data.data", typeof data.data);
-      console.log("type of data.data._id", typeof data.data._id);
-      console.log("type of data.data.text", typeof data.data.text);
-      console.log("type of data.data.user", typeof data.data.user);
+      // console.log("type of data", typeof data);
+      // console.log("type of data.data", typeof data.data);
+      // console.log("type of data.data._id", typeof data.data._id);
+      // console.log("type of data.data.text", typeof data.data.text);
+      // console.log("type of data.data.user", typeof data.data.user);
 
       setMessages((previousMessages) => {
         const endMessage = previousMessages[0];
